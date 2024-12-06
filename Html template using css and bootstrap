@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Fitness Training - User Management</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        header {
+            background-color: #343a40;
+            color: white;
+            padding: 10px 0;
+        }
+        header h1 {
+            margin: 0;
+        }
+        .container {
+            margin-top: 20px;
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+<header class="text-center">
+    <h1>Online Fitness Training - User Management</h1>
+</header>
+
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Dashboard</h2>
+        <button class="btn btn-success" onclick="showAddUserForm()">Add New User</button>
+    </div>
+
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Subscription Plan</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="user-list">
+            <!-- Example Data -->
+            <tr>
+                <td>1</td>
+                <td>John Doe</td>
+                <td>johndoe@example.com</td>
+                <td>Premium</td>
+                <td>
+                    <button class="btn btn-primary btn-sm" onclick="editUser(1)">Edit</button>
+                    <button class="btn btn-danger btn-sm" onclick="deleteUser(1)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="container mt-4" id="user-form" style="display: none;">
+    <h2 id="form-title">Add User</h2>
+    <form id="userManagementForm" class="needs-validation" novalidate>
+        <div class="mb-3">
+            <label for="userName" class="form-label">Name</label>
+            <input type="text" id="userName" name="userName" class="form-control" required>
+            <div class="invalid-feedback">
+                Please enter a name.
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="userEmail" class="form-label">Email</label>
+            <input type="email" id="userEmail" name="userEmail" class="form-control" required>
+            <div class="invalid-feedback">
+                Please enter a valid email address.
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="userPlan" class="form-label">Subscription Plan</label>
+            <select id="userPlan" name="userPlan" class="form-select" required>
+                <option value="" disabled selected>Select a plan</option>
+                <option value="Basic">Basic</option>
+                <option value="Standard">Standard</option>
+                <option value="Premium">Premium</option>
+            </select>
+            <div class="invalid-feedback">
+                Please select a subscription plan.
+            </div>
+        </div>
+        <button type="submit" class="btn btn-success">Save</button>
+        <button type="button" class="btn btn-secondary" onclick="hideUserForm()">Cancel</button>
+    </form>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Show Add User Form
+    function showAddUserForm() {
+        document.getElementById('user-form').style.display = 'block';
+        document.getElementById('form-title').textContent = 'Add User';
+        document.getElementById('userManagementForm').reset();
+    }
+
+    // Hide Add/Edit User Form
+    function hideUserForm() {
+        document.getElementById('user-form').style.display = 'none';
+    }
+
+    // Edit User Functionality (example)
+    function editUser(userId) {
+        document.getElementById('user-form').style.display = 'block';
+        document.getElementById('form-title').textContent = 'Edit User';
+        // Fetch and populate user data (mock data for demonstration)
+        document.getElementById('userName').value = 'John Doe';
+        document.getElementById('userEmail').value = 'johndoe@example.com';
+        document.getElementById('userPlan').value = 'Premium';
+    }
+
+    // Delete User Functionality
+    function deleteUser(userId) {
+        if (confirm('Are you sure you want to delete this user?')) {
+            // Perform delete action here
+            alert('User deleted!');
+        }
+    }
+
+    // Bootstrap form validation
+    (function () {
+        'use strict';
+        const forms = document.querySelectorAll('.needs-validation');
+        Array.from(forms).forEach(form => {
